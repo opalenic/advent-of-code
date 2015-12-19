@@ -79,8 +79,6 @@ fn main() {
     let mut light_matrix = [[false; 1000]; 1000];
 
     for oper in oper_list.iter() {
-        println!("{:?}", oper);
-
         // + 1 because the ranges are inclusive
         for x in ((oper.range.0).0)..((oper.range.1).0 + 1) {
 
@@ -106,5 +104,33 @@ fn main() {
         })
     });
 
-    print!("Number of light lit after all operations: {}", sum);
+    println!("Number of light lit after all operations: {}", sum);
+
+
+
+    let mut brt_matrix = [[0 as u32; 1000]; 1000];
+
+    for oper in oper_list.iter() {
+        // + 1 because the ranges are inclusive
+        for x in ((oper.range.0).0)..((oper.range.1).0 + 1) {
+
+            for y in ((oper.range.0).1)..((oper.range.1).1 + 1) {
+
+                match oper.op_type {
+                    OperationType::On => brt_matrix[x][y] += 1,
+                    OperationType::Off => if brt_matrix[x][y] != 0 { brt_matrix[x][y] -= 1 },
+                    OperationType::Toggle => brt_matrix[x][y] += 2,
+                }
+            }
+        }
+    }
+
+    let brt_sum = brt_matrix.iter().fold(0, |total_acc, &row| {
+        total_acc +
+        row.iter().fold(0, |acc, &light_state| {
+            acc + light_state
+        })
+    });
+
+    println!("Total brightness after all operations: {}", brt_sum);
 }
