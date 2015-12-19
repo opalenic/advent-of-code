@@ -10,7 +10,7 @@ fn main() {
     let mut entered_basement_at_pos = -1;
 
     for wrapped_ch in io::stdin().chars() {
-        
+
         let ch = wrapped_ch.unwrap();
 
         if ch == '(' {
