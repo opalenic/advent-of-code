@@ -118,7 +118,11 @@ fn main() {
 
                 match oper.op_type {
                     OperationType::On => brt_matrix[x][y] += 1,
-                    OperationType::Off => if brt_matrix[x][y] != 0 { brt_matrix[x][y] -= 1 },
+                    OperationType::Off => {
+                        if brt_matrix[x][y] != 0 {
+                            brt_matrix[x][y] -= 1
+                        }
+                    }
                     OperationType::Toggle => brt_matrix[x][y] += 2,
                 }
             }
@@ -126,10 +130,7 @@ fn main() {
     }
 
     let brt_sum = brt_matrix.iter().fold(0, |total_acc, &row| {
-        total_acc +
-        row.iter().fold(0, |acc, &light_state| {
-            acc + light_state
-        })
+        total_acc + row.iter().fold(0, |acc, &light_state| acc + light_state)
     });
 
     println!("Total brightness after all operations: {}", brt_sum);
