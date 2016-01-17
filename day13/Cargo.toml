@@ -1,0 +1,8 @@
+[package]
+name = "day13"
+version = "0.1.0"
+authors = ["Ondrej Palenicek <ondrej.palenicek@gmail.com>"]
+
+[dependencies]
+permutohedron = "0.2"
+regex = "0.1"
