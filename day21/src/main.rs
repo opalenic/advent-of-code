@@ -2,8 +2,6 @@
 #[macro_use]
 extern crate itertools;
 
-use itertools::Itertools;
-
 use std::u32;
 
 #[derive(Debug, Clone)]
@@ -120,11 +118,11 @@ fn main() {
     ];
 
 
-    let mut equipment_combinations = iproduct!(weapons.iter(),
+    let equipment_combinations = iproduct!(weapons.iter(),
                                                armors.iter(),
                                                rings.iter(),
                                                rings.iter())
-                                         .filter(|&(w, a, lr, rr)| {
+                                         .filter(|&(_, _, lr, rr)| {
                                              lr.name != rr.name ||
                                              (lr.name == "Unequiped" && rr.name == "Unequiped")
                                          });
@@ -144,7 +142,7 @@ fn main() {
         let mut player = Character::new(&i);
         let mut boss = boss_template.clone();
 
-        let (won, num_rounds) = player.fight_it_out(&mut boss);
+        let (won, _) = player.fight_it_out(&mut boss);
         if won {
             if min_cost > i.get_cost() {
                 min_cost = i.get_cost();
