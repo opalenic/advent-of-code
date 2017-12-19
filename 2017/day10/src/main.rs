@@ -3,6 +3,7 @@
 use std::io;
 use std::io::prelude::*;
 
+use std::env;
 
 fn create_hash(
     hash_lenght: usize,
@@ -65,20 +66,43 @@ fn create_full_hash(input_str: &str) -> String {
 
 
 fn main() {
-    let mut input_str = String::new();
-    io::stdin().read_to_string(&mut input_str).unwrap();
 
-    let inputs = input_str
-        .trim()
-        .split(",")
-        .map(|len_str| len_str.parse())
-        .collect::<Result<Vec<usize>, _>>()
-        .expect("parsing error");
+    let mut args = env::args();
+    args.next();
 
-    let hash = create_hash(256, 1, &inputs);
-    println!("Part A: {}", hash[0] * hash[1]);
+    if let Some(arg) = args.next() {
+        match arg.as_str() {
+            "-a" => {
+                let mut input_str = String::new();
+                io::stdin().read_to_string(&mut input_str).unwrap();
 
-    println!("Part B: {}", create_full_hash(&input_str.trim()));
+                let inputs = input_str
+                    .trim()
+                    .split(",")
+                    .map(|len_str| len_str.parse())
+                    .collect::<Result<Vec<usize>, _>>()
+                    .expect("parsing error");
+
+                let hash = create_hash(256, 1, &inputs);
+                println!("{}", hash[0] * hash[1]);
+            },
+            "-b" => {
+
+                let input_str = if let Some(hash) = args.next() {
+                    hash
+                } else {
+                    let mut tmp = String::new();
+                    io::stdin().read_to_string(&mut tmp).unwrap();
+                    tmp
+                };
+
+                println!("{}", create_full_hash(&input_str.trim()));
+            },
+            _ => {panic!("Use -a or -b argument to specify the part of the puzzle.");}
+        }
+    } else {
+        panic!("Use -a or -b argument to specify the part of the puzzle.");
+    }
 }
 
 #[cfg(test)]
