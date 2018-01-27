@@ -78,7 +78,7 @@ fn apply_transforms(transform_map: &HashMap<String, HashSet<Vec<String>>>,
     possible_molecules
 }
 
-// Unfortunately this is really slow. But it works for short lenghts of "cure".
+// Unfortunately this is really slow. But it works for short lengths of "cure".
 fn steps_to_cure(transform_map: &HashMap<String, HashSet<Vec<String>>>,
                  cure: &Vec<String>,
                  current: &HashSet<Vec<String>>,

@@ -6,17 +6,17 @@ use std::io::prelude::*;
 use std::env;
 
 fn create_hash(
-    hash_lenght: usize,
+    hash_length: usize,
     num_hash_rounds: usize,
-    skip_lenghts: &Vec<usize>,
+    skip_lengths: &Vec<usize>,
 ) -> Vec<usize> {
 
-    let mut out: Vec<usize> = (0..hash_lenght).collect();
+    let mut out: Vec<usize> = (0..hash_length).collect();
     let mut curr_pos = 0;
     let mut skip_len = 0;
 
     for _ in 0..num_hash_rounds {
-        for in_skip_len in skip_lenghts {
+        for in_skip_len in skip_lengths {
 
             let end_pos = curr_pos + in_skip_len;
 
@@ -45,12 +45,12 @@ fn create_hash(
 
 
 fn create_full_hash(input_str: &str) -> String {
-    let mut skip_lenghts: Vec<usize> = input_str.chars().map(|ch| ch as usize).collect();
-    skip_lenghts.extend(vec![17, 31, 73, 47, 23]);
+    let mut skip_lengths: Vec<usize> = input_str.chars().map(|ch| ch as usize).collect();
+    skip_lengths.extend(vec![17, 31, 73, 47, 23]);
 
 
 
-    let sparse_hash = create_hash(256, 64, &skip_lenghts);
+    let sparse_hash = create_hash(256, 64, &skip_lengths);
 
     sparse_hash
         .windows(16)

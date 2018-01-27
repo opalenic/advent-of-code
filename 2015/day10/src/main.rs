@@ -29,7 +29,7 @@ fn main() {
     }
 
 
-    println!("The lenght of the string after {} iterations is: {}",
+    println!("The length of the string after {} iterations is: {}",
              num_iterations,
              current.len());
 }
