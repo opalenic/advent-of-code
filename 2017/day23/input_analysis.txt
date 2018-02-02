@@ -1,0 +1,33 @@
+                set b 57
+                set c b
+                jnz a 2
+                jnz 1 5
+                mul b 100
+                sub b -100000
+                set c b
+                sub c -17000      9 - {'c': 122700, 'b': 105700, 'a': 1}
+     ^          set f 1
+     |          set d 2
+     |  ^       set e 2
+     |  |  ^    set g d         |  input d b   in/out e f  out g
+     |  |  |    mul g e         |    if d*e - b == 0 => f = 0    (if d*(e0..=b) - b == 0   -- if d*(e0..=b) == b => f = 0
+     |  |  |    sub g b         |
+     |  |  |  | jnz g 2         |
+     |  |  |  | set f 0         |
+     |  |  |  v sub e -1        |    e += 1
+     |  |  |    set g e         |
+     |  |  |    sub g b         |
+     |  |  |    jnz g -8        |    if e - b == 0 => g = 0   e = b
+     |  |       sub d -1
+     |  |       set g d
+     |  |       sub g b
+     |  |       jnz g -13
+     |     |    jnz f 2
+     |     |    sub h -1
+     |     v    set g b
+     |          sub g c
+     |     |    jnz g 2
+     |  |  |    jnz 1 3
+     |  |  v    sub b -17
+     |  |       jnz 1 -23
+        v

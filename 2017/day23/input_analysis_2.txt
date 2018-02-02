@@ -1,0 +1,25 @@
+                set b 57
+                set c b
+                jnz a 2
+                jnz 1 5
+                mul b 100
+                sub b -100000
+                set c b
+                sub c -17000
+      ^         set f 1
+      |         set d 2
+      |   ^     set e 2         input b  in/out d  out g   internal e
+      |   |     subr1            => g = 0,  e = b,  f = (0 | 1) (if d*(e0..=b) == b => f = 0)   mul += (b - e0)
+      |   |     sub d -1          d += 1
+      |   |     set g d           g = d
+      |   |     sub g b
+      |   |     jnz g -5          if g - b == 0 => g = 0
+      |      |  jnz f 2
+      |      |  sub h -1
+      |      v  set g b
+      |         sub g c
+      |      |  jnz g 2
+      |   |  |  jnz 1 3
+      |   |  v  sub b -17
+      |   |     jnz 1 -15
+          v
